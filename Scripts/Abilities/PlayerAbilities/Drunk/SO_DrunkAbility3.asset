@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8d092581dde5b4693d21e658e2a957, type: 3}
+  m_Name: SO_DrunkAbility3
+  m_EditorClassIdentifier: 
+  abilityVFX: {fileID: 1083347160633666, guid: 9b35a14ad1e5a9547afaa11bed839379, type: 3}
+  abilityIcon: {fileID: 0}
+  cooldown: 1
+  canCast: 1
+  abilitySlot: 3
+  damage: 5
+  aggro: 5
+  radius: 5
+  range: 50
+  ignoredLayer:
+    serializedVersion: 2
+    m_Bits: 68
+  abilityUI: {fileID: 3687116002688175036, guid: 8e2d3bb412bb10048bffb39151827ab4,
+    type: 3}
