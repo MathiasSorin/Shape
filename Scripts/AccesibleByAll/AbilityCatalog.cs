@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using MLAPI;
+using System.Collections;
 
 //Contains all in game abilities player/enemies 
 public class AbilityCatalog : NetworkBehaviour
@@ -27,6 +28,16 @@ public class AbilityCatalog : NetworkBehaviour
     public void ShieldPlayerSelf(PlayerClass player, int shieldCharges)
     {
         player.shieldCharges += shieldCharges;
+    }
+
+    public void DamageReductionPlayerSelf(PlayerClass player, float damageReduction, float duration, bool reset)
+    {
+        player.damageReduction += damageReduction;
+        if (reset)
+        {
+            return;
+        }
+        StartCoroutine(ReduceDamageReductionAfterTime(player, damageReduction, duration));
     }
 
     public void HealPlayerSelf(PlayerClass player, float heal)
@@ -124,6 +135,12 @@ public class AbilityCatalog : NetworkBehaviour
     public void ToggleFunctionOff(PlayerClass playerClass)
     {
         playerClass.toggleFunction = null;
+    }
+
+    public IEnumerator ReduceDamageReductionAfterTime(PlayerClass player, float damageReduction, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        DamageReductionPlayerSelf(player, -damageReduction, duration, true);
     }
     #endregion
 }

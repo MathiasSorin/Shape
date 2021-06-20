@@ -17,10 +17,15 @@ public class SO_Ability : ScriptableObject
     //Ability slot
     public int abilitySlot;
 
+    //Ability charges
+    public int chargesMax = 1;
+    public int chargesCurrent = 1;
+
     //Player variables
     protected PlayerClass playerClass;
     protected Transform playerTransform;
     protected GameObject playerTarget;
+    protected PlayerUI playerUI;
 
     public virtual void CastAbility()
     {
@@ -30,9 +35,10 @@ public class SO_Ability : ScriptableObject
     {
     }
 
+    //Start cooldown of ability
     protected void StartCooldown()
     {
-        playerClass.StartCooldown(cooldown, abilitySlot);
+        playerClass.StartCooldown(cooldown, abilitySlot, this);
     }
 
     //Get Player Variables

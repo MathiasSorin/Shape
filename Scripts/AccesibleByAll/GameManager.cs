@@ -9,21 +9,23 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     //Easily accessible classes
-    public AbilityCatalog abilityCatalog;
-    public FloatingTextDisplay floatingTextDisplay;
+    [HideInInspector] public NetworkConnectionManager networkConnectionManager;
+    [HideInInspector] public SceneLoader sceneLoader;
+    [HideInInspector] public AbilityCatalog abilityCatalog;
+    [HideInInspector] public FloatingTextDisplay floatingTextDisplay;
 
     //Local player components
-    public GameObject localPlayer;
-    public Transform playerTransform;
-    public Camera playerCamera;
+    [HideInInspector] public GameObject localPlayer;
+    [HideInInspector] public Transform playerTransform;
+    [HideInInspector] public Camera playerCamera;
+
+    //Player input variables
+    [HideInInspector] public Vector2 mousePosition;
+    [HideInInspector] public bool mouseLeftClick;
+    [HideInInspector] public bool mouseRightClick;
 
     //Spawn point for players
     public Transform spawnPoint;
-
-    //Player input variables
-    public Vector2 mousePosition;
-    public bool mouseLeftClick;
-    public bool mouseRightClick;
 
     private void Awake()
     {
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        networkConnectionManager = GetComponent<NetworkConnectionManager>();
+        sceneLoader = GetComponent<SceneLoader>();
         abilityCatalog = GetComponent<AbilityCatalog>();
         floatingTextDisplay = GetComponent<FloatingTextDisplay>();
     }

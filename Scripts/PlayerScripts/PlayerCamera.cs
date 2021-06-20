@@ -68,17 +68,7 @@ public class PlayerCamera : NetworkBehaviour
         camTurnAngle = camTurnAngle * camTurnAngle2;
         cameraOffset = camTurnAngle * cameraOffset;
 
-        /*Debug.Log(cameraOffset);
-        cameraOffset = new Vector3(cameraOffset.x, Mathf.Clamp(cameraOffset.y, 1f, 7f), cameraOffset.z);*/
-
         Vector3 newPos = playerTransform.position + cameraOffset;
-
-        /*float Yangle = Vector3.Angle(newPos, playerTransform.forward);
-        Debug.Log(Yangle);
-        if (Yangle >= 150f)
-        {
-            return;
-        }*/
 
         transform.position = Vector3.Slerp(transform.position, newPos, cameraSmoothing);
     }

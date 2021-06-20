@@ -23,12 +23,13 @@ public class PlayerClass : NetworkBehaviour, IDamageablePlayer, IHealablePlayer,
     public float health = 100f;
     [SerializeField, Range(1f, 1000f)] protected float healthMax = 100f;
 
-    [Header("Health UI elements")]
+    [Header("UI elements")]
     //Internal UI elements (seen by you)
     public Slider intHealthBarSlider;
     //External UI elements (seen by others)
     public GameObject extHealthBarUI;
     public Slider extHealthBarSlider;
+    public PlayerUI playerUI;
 
     //Player current target
     public GameObject target;
@@ -40,18 +41,10 @@ public class PlayerClass : NetworkBehaviour, IDamageablePlayer, IHealablePlayer,
     public int shieldCharges = 0;
 
     //Abilities
-    public SO_Ability ability1;
-    public SO_Ability ability2;
-    public SO_Ability ability3;
-    public SO_Ability ability4;
-    public SO_Ability ability5;
+    public SO_Ability[] abilities;
 
     //Abilities Cooldown (these variables are not in the abilites SO since you can't run a coroutine in them + they don't reset after play)
-    protected bool ability1CanCast = true;
-    protected bool ability2CanCast = true;
-    protected bool ability3CanCast = true;
-    protected bool ability4CanCast = true;
-    protected bool ability5CanCast = true;
+    protected bool[] abilitiesCanCast = new bool[] { true, true, true, true, true };
 
     #region Virtual Functions
     public virtual void Ability1()
@@ -106,7 +99,7 @@ public class PlayerClass : NetworkBehaviour, IDamageablePlayer, IHealablePlayer,
 
     protected void InitializeAbilityUI()
     {
-        //WIP
+        playerUI.InitializeAbilityUI(this);
     }
 
     protected void UpdateHealthUI()
@@ -115,68 +108,35 @@ public class PlayerClass : NetworkBehaviour, IDamageablePlayer, IHealablePlayer,
         extHealthBarSlider.value = health/healthMax;
     }
 
-    protected void UpdateAbilityUI()
-    {
-        //WIP
-    }
-
     protected void UpdateLocalVariables()
     {
         health = networkHealth.Value;
     }
 
-    public void StartCooldown(float abilityCooldown, int ability)
+    public void StartCooldown(float abilityCooldown, int abilitySlot, SO_Ability ability)
     {
-        switch (ability)
+        ability.chargesCurrent -= 1;
+        if (ability.chargesCurrent <= 0)
         {
-            case 1:
-                ability1CanCast = false;
-                break;
-            case 2:
-                ability2CanCast = false;
-                break;
-            case 3:
-                ability3CanCast = false;
-                break;
-            case 4:
-                ability4CanCast = false;
-                break;
-            case 5:
-                ability5CanCast = false;
-                break;
-            default:
-                return;
+            ability.chargesCurrent = 0;
+            abilitiesCanCast[abilitySlot] = false;
         }
-        StartCoroutine(WaitForCooldown(abilityCooldown, ability));
+        StartCoroutine(WaitForCooldown(abilityCooldown, abilitySlot, ability));
+        playerUI.StartAbilityUICooldown(abilityCooldown, ability);
     }
 
-    public void ResetCooldown(int ability)
+    public void ResetCooldown(int abilitySlot, SO_Ability ability)
     {
-        switch (ability)
+        if (ability.chargesCurrent < ability.chargesMax)
         {
-            case 1:
-                ability1CanCast = true;
-                return;
-            case 2:
-                ability2CanCast = true;
-                return;
-            case 3:
-                ability3CanCast = true;
-                return;
-            case 4:
-                ability4CanCast = true;
-                return;
-            case 5:
-                ability5CanCast = true;
-                return;
-            default:
-                return;
+            ability.chargesCurrent += 1;
         }
+        abilitiesCanCast[abilitySlot] = true;
     }
 
-    protected IEnumerator WaitForCooldown(float abilityCooldown, int ability)
+    protected IEnumerator WaitForCooldown(float abilityCooldown, int abilitySlot, SO_Ability ability)
     {
         yield return new WaitForSeconds(abilityCooldown);
-        ResetCooldown(ability);
+        ResetCooldown(abilitySlot, ability);
     }
 }

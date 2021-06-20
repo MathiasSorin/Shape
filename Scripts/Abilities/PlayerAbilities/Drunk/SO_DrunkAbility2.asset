@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SO_DrunkAbility2
   m_EditorClassIdentifier: 
   abilityVFX: {fileID: 0}
-  cooldown: 0.5
-  abilitySlot: 2
-  heal: 5
-  percent: 5
+  abilityIcon: {fileID: 21300000, guid: 67158e21d95a9d6408e6622f1d3b5875, type: 3}
+  cooldown: 5
+  abilitySlot: 1
+  chargesMax: 1
+  chargesCurrent: 1
+  shieldCharges: 1

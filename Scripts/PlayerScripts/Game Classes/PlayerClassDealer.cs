@@ -24,7 +24,6 @@ public class PlayerClassDealer : PlayerClass
     {
         UpdateLocalVariables();
         UpdateHealthUI();
-        UpdateAbilityUI();
 
         //Check if toggleable ability is active
         if (toggleFunction == null)
@@ -41,43 +40,43 @@ public class PlayerClassDealer : PlayerClass
     #region Class Abilities
     public override void Ability1()
     {
-        if (!ability1CanCast)
+        if (!abilitiesCanCast[abilities[0].abilitySlot])
         {
             return;
         }
-        ability1.CastAbility();
+        abilities[0].CastAbility();
     }
     public override void Ability2()
     {
-        if (!ability2CanCast)
+        if (!abilitiesCanCast[abilities[1].abilitySlot])
         {
             return;
         }
-        ability2.CastAbility();
+        abilities[1].CastAbility();
     }
     public override void Ability3()
     {
-        if (!ability3CanCast)
+        if (!abilitiesCanCast[abilities[2].abilitySlot])
         {
             return;
         }
-        ability3.CastAbility();
+        abilities[2].CastAbility();
     }
     public override void Ability4()
     {
-        if (!ability4CanCast)
+        if (!abilitiesCanCast[abilities[3].abilitySlot])
         {
             return;
         }
-        ability4.CastAbility();
+        abilities[3].CastAbility();
     }
     public override void Ability5()
     {
-        if (!ability5CanCast)
+        if (!abilitiesCanCast[abilities[4].abilitySlot])
         {
             return;
         }
-        ability5.CastAbility();
+        abilities[4].CastAbility();
     }
     #endregion
 

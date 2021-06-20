@@ -18,6 +18,7 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Player Scripts")]
     [SerializeField] private PlayerCamera playerCamera;
 
+    //Movement variables
     private Vector3 movementDirection;
     private float movementY;
     private bool jumpInput = false;

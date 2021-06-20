@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6dbca8add299a49831d224ea0c4357, type: 3}
-  m_Name: SO_DrunkAbility1
+  m_Script: {fileID: 11500000, guid: 78feb7c6e044ed34b99fa514fbf01e0b, type: 3}
+  m_Name: SO_DrunkAbility4
   m_EditorClassIdentifier: 
   abilityVFX: {fileID: 0}
-  abilityIcon: {fileID: 21300000, guid: 9ede6be26365b1349be00e2c2846e05c, type: 3}
-  cooldown: 0.5
-  abilitySlot: 0
+  abilityIcon: {fileID: 21300000, guid: 352c44c7c8c733f49bcfd9a77da6b11a, type: 3}
+  cooldown: 15
+  abilitySlot: 3
   chargesMax: 1
   chargesCurrent: 1
-  damage: 5
-  aggro: 5
-  range: 5
+  duration: 5
+  damageReduction: 50
