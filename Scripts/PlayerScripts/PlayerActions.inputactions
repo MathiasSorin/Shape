@@ -22,7 +22,15 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Spell 1",
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "3035f873-0249-4ed7-90c8-76baeff943e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "1",
                     "type": "Button",
                     "id": "93d926dd-7741-4596-a5cd-d1255f26eaf2",
                     "expectedControlType": "Button",
@@ -30,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Spell 2",
+                    "name": "2",
                     "type": "Button",
                     "id": "f0e3fc6a-f059-4e76-9edc-b8333d7a631b",
                     "expectedControlType": "Button",
@@ -38,7 +46,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Spell 3",
+                    "name": "3",
                     "type": "Button",
                     "id": "5dbfee0c-73a6-4041-a708-0eb7f3db12b2",
                     "expectedControlType": "Button",
@@ -46,7 +54,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Spell 4",
+                    "name": "4",
                     "type": "Button",
                     "id": "a003a420-c478-4011-ad16-d055ac7dcf2a",
                     "expectedControlType": "Button",
@@ -54,7 +62,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Spell 5",
+                    "name": "5",
                     "type": "Button",
                     "id": "e8515178-1e73-4a37-add4-1c628b35ca5b",
                     "expectedControlType": "Button",
@@ -160,7 +168,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spell 1",
+                    "action": "1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -171,7 +179,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spell 2",
+                    "action": "2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -182,7 +190,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spell 3",
+                    "action": "3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -193,7 +201,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spell 4",
+                    "action": "4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -204,7 +212,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spell 5",
+                    "action": "5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -238,6 +246,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mouse Right Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ddf55444-f04c-4dff-91e0-f46693345e1a",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

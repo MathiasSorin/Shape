@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using MLAPI;
+using System.Collections;
 
 //Manages player movement/gravity
 public class PlayerMovement : NetworkBehaviour
@@ -10,6 +11,9 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Movement Variables")]
     [Range(1f, 50f)] public float movementSpeed = 5f;
     [Range(1f, 50f)] public float jumpStrength = 5f;
+    [Range(0.01f, 5f)] public float rollDuration = 0.5f;
+    [Range(1f, 50f)] public float rollSpeed = 10f;
+    [Range(0.1f, 50f)] public float rollCooldown = 2f;
     [Range(1f, 50f)] public float gravityStrength = 10f;
 
     [Header("Character Controller Component")]
@@ -22,6 +26,8 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 movementDirection;
     private float movementY;
     private bool jumpInput = false;
+    private bool rollInput = false;
+    private bool canRoll = true;
 
     private void Update()
     {
@@ -38,10 +44,20 @@ public class PlayerMovement : NetworkBehaviour
     //Called by PlayerController class every event pressed
     public void UpdateJumpData()
     {
-        if (playerCharacterController.isGrounded)
+        if (!playerCharacterController.isGrounded)
         {
-            jumpInput = true;
+            return;
         }
+        jumpInput = true;
+    }
+
+    public void UpdateRollData()
+    {
+        if (!canRoll)
+        {
+            return;
+        }
+        rollInput = true;
     }
 
     //Move player taking into consideration movement input/gravity/jump
@@ -52,14 +68,31 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector3 CalculatePlayerMovement()
     {
-        Vector3 cameraForward = new Vector3(playerCamera.transform.forward.x, 0, playerCamera.transform.forward.z);
-        Vector3 cameraRight = new Vector3(playerCamera.transform.right.x, 0, playerCamera.transform.right.z);
+        Vector3 cameraForward;
+        Vector3 cameraRight;
+        CheckCameraState(out cameraForward, out cameraRight);
         Vector3 movement = (cameraForward.normalized * movementDirection.z + cameraRight * movementDirection.x) * movementSpeed;
+        PlayerRoll(movement);
         PlayerJump();
         PlayerGravity();
         movement.y = movementY;
-        transform.rotation = Quaternion.LookRotation(cameraForward);
         return movement;
+    }
+
+    //Check in wich state is the camera return forward, right vector according to state
+    private void CheckCameraState(out Vector3 cameraForward, out Vector3 cameraRight)
+    {
+        if (playerCamera.currentCameraState == PlayerCamera.CameraState.Locked)
+        {
+            cameraForward = new Vector3(playerCamera.transform.forward.x, 0, playerCamera.transform.forward.z);
+            cameraRight = new Vector3(playerCamera.transform.right.x, 0, playerCamera.transform.right.z);
+            transform.rotation = Quaternion.LookRotation(cameraForward);
+        }
+        else
+        {
+            cameraForward = transform.forward;
+            cameraRight = transform.right;
+        }
     }
 
     private void PlayerJump()
@@ -69,6 +102,16 @@ public class PlayerMovement : NetworkBehaviour
             movementY = jumpStrength;
             jumpInput = false;
         }
+    }
+
+    private void PlayerRoll(Vector3 movement)
+    {
+        if (!rollInput || !canRoll)
+        {
+            return;
+        }
+        StartCoroutine(RollCooldown());
+        StartCoroutine(Roll(movement));
     }
 
     private void PlayerGravity()
@@ -83,5 +126,25 @@ public class PlayerMovement : NetworkBehaviour
             //movementY is set to -1 to make sure that the player is grounded otherwise player will float
             movementY = -1;
         }
+    }
+
+    //Performs a roll during the duration
+    private IEnumerator Roll(Vector3 movement)
+    {
+        float rollStart = Time.time;
+        rollInput = false;
+
+        while (Time.time < rollStart + rollDuration)
+        {
+            playerCharacterController.Move((movement/movementSpeed) * rollSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator RollCooldown()
+    {
+        canRoll = false;
+        yield return new WaitForSeconds(rollCooldown);
+        canRoll = true;
     }
 }
