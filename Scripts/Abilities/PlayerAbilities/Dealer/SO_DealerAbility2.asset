@@ -12,12 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c5cf02d7f34a9418785790e28aff7c, type: 3}
   m_Name: SO_DealerAbility2
   m_EditorClassIdentifier: 
-  abilityVFX: {fileID: 0}
-  abilityIcon: {fileID: 0}
-  cooldown: 0
-  abilitySlot: 1
-  chargesMax: 1
-  chargesCurrent: 1
-  damage: 3
-  aggro: 0
-  range: 10

@@ -4,7 +4,6 @@
 using UnityEngine;
 using MLAPI;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 //Manages player camera/camera control
 public class PlayerCamera : NetworkBehaviour
@@ -20,56 +19,38 @@ public class PlayerCamera : NetworkBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerClass playerClass;
 
-    //Components
     private AudioListener audioListener;
     private Transform playerTransform;
 
-    //Mouse variables
     private Vector2 mousePosition;
     private bool mouseLeftClick = false;
     private bool mouseRightClick = false;
 
-    //Camera offset from player, camera original rotation
     private Vector3 cameraOffset;
-    private Vector3 cameraOrigin;
-    private float cameraMaxAngleY = 45f;
-
-    //Camera state machine
-    public enum CameraState
-    {
-        Free, Locked
-    }
-
-    //Current camera state
-    public CameraState currentCameraState;
 
     private void Start()
     {
         audioListener = playerCamera.GetComponent<AudioListener>();
         playerTransform = playerController.GetComponent<Transform>();
         cameraOffset = transform.position - playerTransform.position;
-        cameraOrigin = transform.position;
     }
 
     private void Update()
     {
         if (mouseLeftClick)
         {
-            currentCameraState = CameraState.Free;
             Select();
-            OrbitCamera();
-            CameraLookAt();
-            return;
         }
+
         if (mouseRightClick)
         {
-            currentCameraState = CameraState.Locked;
             OrbitCamera();
         }
         else
         {
             transform.position = (playerTransform.position + cameraOffset);
         }
+
         CameraLookAt();
     }
 
@@ -82,11 +63,13 @@ public class PlayerCamera : NetworkBehaviour
     //Orbit camera around player by following mouse position
     private void OrbitCamera()
     {
-        Quaternion camTurnAngleX = Quaternion.AngleAxis(mousePosition.x * orbitCameraSpeedHorizontal, transform.up);
-        Quaternion camTurnAngleY = Quaternion.AngleAxis(-mousePosition.y * orbitCameraSpeedVertical, transform.right);
-        camTurnAngleX = camTurnAngleX * camTurnAngleY;
-        cameraOffset = camTurnAngleX * cameraOffset;
+        Quaternion camTurnAngle = Quaternion.AngleAxis(mousePosition.x * orbitCameraSpeedHorizontal, transform.up);
+        Quaternion camTurnAngle2 = Quaternion.AngleAxis(-mousePosition.y * orbitCameraSpeedVertical, transform.right);
+        camTurnAngle = camTurnAngle * camTurnAngle2;
+        cameraOffset = camTurnAngle * cameraOffset;
+
         Vector3 newPos = playerTransform.position + cameraOffset;
+
         transform.position = Vector3.Slerp(transform.position, newPos, cameraSmoothing);
     }
 
