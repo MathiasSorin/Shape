@@ -30,7 +30,7 @@ public class PlayerController : NetworkBehaviour
     private bool mouseLeftClick = false;
     private bool mouseRightClick = false;
 
-    //Deactivate player componenents if not local player
+    //Deactivate player components if not local player
     private void Start()
     {
         if (IsLocalPlayer)
@@ -91,6 +91,14 @@ public class PlayerController : NetworkBehaviour
         if (value.started)
         {
             playerMovement.UpdateJumpData();
+        }
+    }
+
+    public void OnRoll(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            playerMovement.UpdateRollData();
         }
     }
 
