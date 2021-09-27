@@ -22,12 +22,20 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Player Scripts")]
     [SerializeField] private PlayerCamera playerCamera;
 
+    //Playerclass Component
+    PlayerClass playerClass;
+
     //Movement variables
     private Vector3 movementDirection;
     private float movementY;
     private bool jumpInput = false;
     private bool rollInput = false;
     private bool canRoll = true;
+
+    private void Start()
+    {
+        playerClass = GetComponent<PlayerClass>();
+    }
 
     private void Update()
     {
@@ -71,7 +79,7 @@ public class PlayerMovement : NetworkBehaviour
         Vector3 cameraForward;
         Vector3 cameraRight;
         CheckCameraState(out cameraForward, out cameraRight);
-        Vector3 movement = (cameraForward.normalized * movementDirection.z + cameraRight * movementDirection.x) * movementSpeed;
+        Vector3 movement = (cameraForward.normalized * movementDirection.z + cameraRight * movementDirection.x) * CalculateMovementSpeed();
         PlayerRoll(movement);
         PlayerJump();
         PlayerGravity();
@@ -126,6 +134,11 @@ public class PlayerMovement : NetworkBehaviour
             //movementY is set to -1 to make sure that the player is grounded otherwise player will float
             movementY = -1;
         }
+    }
+
+    private float CalculateMovementSpeed()
+    {
+        return movementSpeed + (playerClass.speedModifier/100*movementSpeed);
     }
 
     //Performs a roll during the duration

@@ -29,10 +29,8 @@ public class PlayerCamera : NetworkBehaviour
     private bool mouseLeftClick = false;
     private bool mouseRightClick = false;
 
-    //Camera offset from player, camera original rotation
+    //Camera offset from player
     private Vector3 cameraOffset;
-    private Vector3 cameraOrigin;
-    private float cameraMaxAngleY = 45f;
 
     //Camera state machine
     public enum CameraState
@@ -48,7 +46,6 @@ public class PlayerCamera : NetworkBehaviour
         audioListener = playerCamera.GetComponent<AudioListener>();
         playerTransform = playerController.GetComponent<Transform>();
         cameraOffset = transform.position - playerTransform.position;
-        cameraOrigin = transform.position;
     }
 
     private void Update()

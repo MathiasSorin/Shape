@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ca896ab29d9544aa9718e80452e4a1, type: 3}
+  m_Name: SO_DealerAbility3
+  m_EditorClassIdentifier: 
+  abilityVFX: {fileID: 0}
+  abilityAnimation: 
+  abilityIcon: {fileID: 21300000, guid: e4f550061363f0544810224b1e61d6e7, type: 3}
+  cooldown: 15
+  abilitySlot: 2
+  chargesMax: 1
+  chargesCurrent: 1
+  heal: 5
+  damage: 5

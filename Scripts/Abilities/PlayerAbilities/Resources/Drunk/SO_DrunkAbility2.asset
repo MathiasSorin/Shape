@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305a993fc3ecb924e87c1d1f30a2a625, type: 3}
+  m_Name: SO_DrunkAbility2
+  m_EditorClassIdentifier: 
+  abilityVFX: {fileID: 0}
+  abilityIcon: {fileID: 21300000, guid: 67158e21d95a9d6408e6622f1d3b5875, type: 3}
+  cooldown: 20
+  abilitySlot: 1
+  chargesMax: 1
+  chargesCurrent: 1
+  shieldCharges: 1

@@ -102,6 +102,14 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    public void OnInteract(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            playerClass.Interact();
+        }
+    }
+
     public void On1(InputAction.CallbackContext value)
     {
         if (value.started)
